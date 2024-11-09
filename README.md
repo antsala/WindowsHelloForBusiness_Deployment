@@ -1,6 +1,13 @@
 # WindowsHelloForBusiness_Deployment
 Configuración del tenant de M365 para usar Windows Hello For Business
 
+## Requisitos
+
+Se necesita.
+
+* Un tenant de M365 con licencia de Intune (Para Windows Hello For Business Avanzado)
+* Una VM de Windows 11 con un usuario local.
+
 ## ¿Qué es Windows Hello para la Empresa?
 
 `Windows Hello for Business` es una solución de autenticación de Microsoft diseñada para reemplazar las contraseñas tradicionales con métodos de inicio de sesión más seguros y convenientes. Utiliza tecnologías de autenticación biométrica (como reconocimiento facial o huellas dactilares) y claves de seguridad basadas en PIN, eliminando la dependencia de contraseñas que son vulnerables a ataques de phishing y robos. Windows Hello for Business integra autenticación de dos factores y cifrado de hardware, ofreciendo una forma robusta y fácil de usar para proteger el acceso a dispositivos, redes y aplicaciones empresariales.
@@ -39,13 +46,20 @@ El dispositivo del usuario debe estar registrado en `Microsoft Entra ID`. Tienes
 * Uniendo el disposito al dominio de `Entra ID`.
 * Registrando el dispositivo en `Entra ID`.
 
-Vamos a usar el `Registro`. 
+El `registro` al dominio es útil cuando queremos que `Microsoft Entra ID` identifique al dispositivo, que puede ser `Linux`, `Android`, `IoS`, `MAC` y por supuesto `Windows`. Para `WHFB`, como es lógico solo se puede aplicar a sistemas operativos de Windows.
 
-Más adelante vamos a ver formas avanzadas de `WHFB`, que requerirán el uso de `Intune` (Endpoint Manager). Por esa razón, ahora es buen momento para activar la configuración que permite que un dispositivo registrado sea gobernado autmáticamente por `Intune` (inscripción automática en Intune).
+La `Unión al Dominio de Microsoft Entra ID` es la forma más cómoda cuando la organización es nativa de nube.
+
+Existe la posibilidad de la `Unión híbrida al dominio de Microsoft Entra ID`, donde el dispositivo puede ser a la vez miembro del dominio de la nube y del on-prem (`ADDS`)
+
+Por simplicidad de la práctica, vamos a usar la `unión al dominio en la nube`, pero ten en cuenta que `WHFB` funciona para cualquier escenario.
+
+Más adelante vamos a ver formas avanzadas de `WHFB`, que requerirán el uso de `Intune` (Endpoint Manager). Por esa razón, ahora es buen momento para activar la configuración que permite que un dispositivo inscrito sea gobernado automáticamente por `Intune` (inscripción automática en Intune).
+Nota: Un dispositivo `inscrito` en `Entra ID` es aquel que o bien ha sido `registrado` o ha sido `unido al dominio de Entra ID`.
 
 ![Inscripcion automática](./img/202411091158.png)
 
-Seleccionamos ***Todo*** en ámbito MDB y Guardamos. Esto permitirá que todos los usuarios puedan inscribir sus dispositivos en Intune.
+Seleccionamos ***Todo*** en ámbito MDM y Guardamos. Esto permitirá que todos los usuarios puedan inscribir sus dispositivos en Intune.
 
 ![Seleccionar TODO](./img/202411091200.png)
 
@@ -59,39 +73,6 @@ Estudia la siguiente imagen.
 
 En (1) puedes comprobar que `WHFB` está habilitado para ***Todos los usuarios***. En su configuración por defecto, como ya anunciamos, no hay que hacer nada. Las opciones que puedes ver en (2) las trataremos más adelante. Por esta razón, el botón ***Guardar*** (3) no se activa.
 
-Vamos a proceder a registrar el dispositivo. Para ello, iniciamos sesión en el dispositivo y accedemos a `Access work or school`.
+Vamos a proceder a unir el dispositivo al dominio de la nube. Para ello vamos a `Settings`, `Accounts` y hacemos clic en `Access work or school`.
 
-![Settings](./img/202411091214.png)
-
-Luego clic en ***Connect***.
-
-![Settings](./img/202411091215.png)
-
-Escribimos el nombre de usuario y clic en ***Next***
-
-![Settings](./img/202411091217.png)
-
-Escribimos la contraseña del usuario. 
-Nota: Es necesario proporcionar contraseña porque estamos haciendo un registro de dispositivo manual. Cuando esta solución se despliegue de forma masiva ya no será necesario que el propio usuario registre el dispositivo (y por ello escribia la contraseña). 
-
-Debemos esperar unos segundos a que se registre el dispositivo.
-
-![Settings](./img/202411091220.png)
-
-Si el registro es efectivo, verás es siguiente mensaje.
-
-![Settings](./img/202411091221.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![WHFB](./img/202411091345.png)
