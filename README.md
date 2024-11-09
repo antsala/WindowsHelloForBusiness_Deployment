@@ -181,7 +181,7 @@ Como imaginarás, lo que vamos a tratar a continuación, determinará qué opcio
 
 ## Segunda opción de configuración de WHFB
 
-La forma de configurar `WHFB` que hemos explicado no es realmente una opción, ya que `WHFB` estaba ya connfigurado. Solo hemos indicado (mediante la inscripción de dispositivo) que `Windows 11` configure `Windows Hello` para iniciar sesión. 
+La forma de configurar `WHFB` que hemos explicado no es realmente una opción, ya que `WHFB` estaba ya configurado en el tenant. Solo hemos indicado (mediante la inscripción de dispositivo) que `Windows 11` use `Windows Hello` para iniciar sesión. 
 
 En esta segunda opción, vamos a aprender a cambiar algunos de los ajustes de seguridad de `WHFB`.
 
