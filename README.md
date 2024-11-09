@@ -306,7 +306,7 @@ Selecciona el grupo de equipos a los que se aplicará esta directiva.
 
 ![Nueva directiva6](./img/202411091700.png)
 
-Avanza hasta el final y crea ls directiva.
+Avanza hasta el final y crea la directiva.
 
 Comprueba que se ha creado correctamente.
 
