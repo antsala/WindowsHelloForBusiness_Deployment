@@ -232,3 +232,87 @@ Hacemos clic en ***Guardar*** para actualizar la configuración de `WHFB` en el 
 
 ![Guardar](./img/202411091558.png)
 
+## Tercera opción de configuración de WHFB
+
+Acabamos de ver cómo se modifica la configuración de seguridad de `WHFB` a nivel de tenant. pero ¿qué ourriría si requieres ajustes más detallados? Por ejemplo, que los ejecutivos de la empresa tengan un PIN más complejo.
+
+Para ello es necesario usar políticas de configuracion de Intune (y sus respectivas licencias)
+
+Lo primero que debemos hacer es desactivar la configuración general de `WHFB` en el tenant, pues será Intune quien configure `WHFB`. Asegúrate que la configuración queda así y haz clic en ***Guardar***.
+
+![Deshabilitar](./img/202411091609.png)
+
+A los efectos de este tutorial, vamos a crear un grupo de seguridad en Azure que contendrá los equipos a los que deseemos configurar `WHFB`.
+
+En el Centro de Administración de Microsoft Entra, crea un grupo.
+
+![Add group](./img/202411091614.png)
+
+Creamos el grupo con la siguiente configuración.
+
+![Create group](./img/202411091622.png)
+
+Vamos a crear una serie de políticas en Intune para aplicar `WHFB`.Seleccionamos ***Configuración***.
+
+![Configuración](./img/202411091625.png)
+
+Creamos una nueva directiva. En `Plataforma` elegimos `Windows 11 y posteriores`. En `Tipo de perfil` seleccionamos `Catálogo de configuración` y hacemos clic en ***Crear***
+
+![Nueva directiva](./img/202411091628.png)
+
+En `Datos básicos` ponemos un nombre a la directiva y hacemos clic en ***Siguiente***.
+
+![Nueva directiva2](./img/202411091631.png)
+
+En el siguiente paso, hacemos clic en `Agregar configuración` (1) , luego elegimos `Windows Hello para la Empresa` (2). En (3) puedes observar cómo aparecen todas las configuraciones disponibles para `WHFB`.
+
+![Nueva directiva3](./img/202411091634.png)
+
+Marcamos las siguientes (Realmente las que necesites):
+
+* Caracteres especiales.
+* Dígitos.
+* Expiración.
+* Habilitar la recuperación del PIN.
+* Historial de PIN.
+* Letras mayúsculas.
+* Letras minúsculas.
+* Longitud máxima del PIN.
+* Longitud mínima del PIN.
+* Requerir dispositivo de seguridad.
+* Usar Windows Hello para empresas (dispositivo)
+* Grupo A.
+* Grupo B.
+* Habilitar ESS con periféricos compatibles.
+* Permitir el uso de biometría.
+* Usar clave de seguridad para el inicio de sesión.
+* Uso de protección mejorada contra la suplantación de identidad en características faciales.
+
+Conforme las vayas seleccionado, irán aparenciendo en la interfaz gráfica para que las configures. Recomendamos leer la ayuda de los toltips.
+
+![Nueva directiva4](./img/202411091648.png)
+
+De todos los ajustes, `Grupo A` y `Grupo B` merecen una explicación aparte, pero no será en este momento. Haz clic en el bótón `Sin Configurar`(-) para no aportar en este momento la configuración.
+
+Debe quedar así.
+
+![Nueva directiva5](./img/202411091657.png)
+
+Haz clic en ***Siguiente***.
+
+Avanza hasta `Asignaciones`.
+
+Selecciona el grupo de equipos a los que se aplicará esta directiva.
+
+![Nueva directiva6](./img/202411091700.png)
+
+Avanza hasta el final y crea ls directiva.
+
+Comprueba que se ha creado correctamente.
+
+![Nueva directiva7](./img/202411091702.png)
+
+## Actividades que puede realizar el usuario en Windows Hello.
+
+https://www.youtube.com/watch?v=A8faHO-bn-0
+
