@@ -75,4 +75,124 @@ En (1) puedes comprobar que `WHFB` está habilitado para ***Todos los usuarios**
 
 Vamos a proceder a unir el dispositivo al dominio de la nube. Para ello vamos a `Settings`, `Accounts` y hacemos clic en `Access work or school`.
 
-![WHFB](./img/202411091345.png)
+![Work or school](./img/202411091345.png)
+
+Hacemos clic en `Connect`.
+
+![Connect](./img/202411091347.png)
+
+Observa la siguiente imagen.
+
+![inscripción](./img/202411091350.png)
+
+Si pones el email del usuario en (1) se procederá al `registro`. En (2) podemos unir al dispositivo al dominio de `Entra ID`. Por último, en (3), unimos al dispositivo al dominio on-prem `ADDS`. Elegimos la opción (2).
+
+Nos autenticamos con el usuario.
+
+![inscripción](./img/202411091354.png)
+
+Un mensaje nos indica que comprobemos si todo es correcto.
+
+![inscripción](./img/202411091355.png)
+
+hacemos clic en `Join`.
+
+Se está procediendo a inscribir el dispositivo en `Entra ID`.
+
+Volvemos a la página de administración de `Intune` y, tras un par de minutos, como muestra la imagen, podrás ver el equipo. Recuerda que Intune solo se necesita para poder configurar los ajustes avanzados de `WHFB` y, en muchos escenarios, no es necesario realizarlos, ya que la protección por defecto de `WHFB` cumple las necesidades de la mayoría de nosotros.
+
+![inscripcion](./img/202411091400.png)
+
+Ahora debemos configurar `Windows Hello` en el dispositivo. Para ello cerramos sesión. 
+
+Elegimos `Otro usuario` y escribimos el email del usuario de ejemplo y su contraseña.
+
+![inscripcion](./img/202411091403.png)
+
+La contraseña sigue siendo necesaria para configurar Windows Hello en el dispositivo, pero a partir de entonces ya no será necesaria.
+
+Se crea el perfil del usuario.
+
+![inscripcion](./img/202411091406.png)
+
+Como puedes ver en la siguiente imagen, se nos invita a configurar `Windows Hello`.
+
+![inscripcion](./img/202411091407.png)
+
+Un mensaje nos indica que debemos activar la `MFA` para el usuario.
+
+![inscripcion](./img/202411091409.png)
+
+`WHFB` exigirá un 2FA cuando se vaya a reconfigurar, por ejemplo, por olvido del `PIN`. Así que tenemos que configurar la 2FA. 
+
+Seguimos los pasos indicados: Instalar `Microsoft Authenticator` y lo configuramos.
+
+![2faok](./img/202411091419.png)
+
+Es el momento de configurar nuestro `PIN`.
+
+![PIN](./img/202411091420.png)
+
+Un mensaje nos indica que hemos finalizado la configuración de `Windows Hello` en el dispositivo.
+
+![OK](./img/202411091422.png)
+
+Cerramos la sesión y comprobamos que ya podemos iniciarla con PIN (y sin contraseña)
+
+Observa que, tenemos otras opciones disponible para iniciar sesión.
+
+![OK](./img/202411091424.png)
+
+Si te fijas, tenemos la contraseña.
+
+![OK](./img/202411091426.png)
+
+Esto tiene sentido porque lo que hemos hecho es añadir una nueva forma de inicio de sesión, basada en PIN, pero no se ha anulado el uso de las contraseñas.
+
+Observa la siguiente imagen.
+
+![Ways](./img/202411091428.png)
+
+Puedes ver las diferentes formas en las que se permite el inicio de sesión. 
+
+Para `Windows Hello` se tiene:
+
+* ***Reconocimiento facial*** (hace falta una cámara especial. Consulta los requisitos)
+
+* ***Huella digital***. Si el dispositivo tiene lector de huella digital, el asistente de configuración de `Windows Hello` te guía para grabar la información biométrica.
+
+* ***PIN***. Esta es la opción que hemos configurado en este tutorial, ya que la VM no tiene ni webcam ni hardware biométrico.
+
+Otras formas de inicio de sesión:
+
+* ***Security key***. Son tokens que almacenan dispositivos de hardware (FIDO2).
+
+* ***Password***. Es la tradicional.
+
+* ***Picture password***. Permite dibujar un patrón con el ratón (o con el dedo en dispositivos táctiles)
+
+Un poco más abajo verás lo siguiente.
+
+![Activar WH](./img/202411091436.png)
+
+Solo se permiten los inicios de sesión que ofrece `Windows Hello`.
+
+Como imaginarás, lo que vamos a tratar a continuación, determinará qué opciones de inicio de sesión se le ofrece al dispositivo del usuario. Esta configuración se realizará en `Microsoft Entra ID` y una vez configuradas, el usuario no podrá cambiarlas en su dispositivo.
+
+## Segunda opción de configuración de WHFV
+
+La forma de configurar `WHFB` que hemos explicado no es realmente una opción, ya que `WHFB` estaba ya connfigurado. Solo hemos indicado (mediante la inscripción de dispositivo) que `Windows 11` configure `Windows Hello` para iniciar sesión. 
+
+En esta segunda opción, vamos a aprender a cambiar algunos de los ajustes de seguridad de `WHFB`.
+
+https://www.youtube.com/watch?v=A8faHO-bn-0
+
+
+
+
+
+
+
+
+
+
