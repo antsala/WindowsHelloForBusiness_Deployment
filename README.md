@@ -185,15 +185,50 @@ La forma de configurar `WHFB` que hemos explicado no es realmente una opción, y
 
 En esta segunda opción, vamos a aprender a cambiar algunos de los ajustes de seguridad de `WHFB`.
 
-https://www.youtube.com/watch?v=A8faHO-bn-0
+De vuelta al Centro de administración de Intune (Endpoint Manager), seleccionamos `Windows Hello for Business`.
 
+![Intune](./img/202411091537.png)
 
+Observa la siguiente imagen.
 
+![enable](./img/202411091540.png)
 
+`WHFB` ya está habilitado. No confundas lo que vamos a hacer, que consiste en habilitar la ***Configuración*** del servicio (1), no el propio servicio, que ya está habilitado. Para ello, selecciona ***Habilitado*** (2). Aparecerán multitud de opciones.
 
+![Required](./img/202411091545.png)
 
+La exigencia del módulo `TPM` es un factor clave. Si el hardware del  dispositivo no lo tiene, `WHFB` no se podrá configurar. La opción `Preferido` hace que dicho TPM se emule en los dispositivos de Windows 10 que no lo tengan. (Recuerda que la presencia del TPM es obligatoria para poder instalar Windows 11).
 
+Si usamos la barra de desplazamiento vertical, accedemos a más opciones. Recomendamos leer detenidamente las ayudas mostradas por los toltips.
 
+![más opciones](./img/202411091551.png)
 
+Comprueba que los ajustes quedan como en la imagen.
 
+¿Qué implica el ajuste `Habilite la seguridad de inicio de sesión mejorada`?
+
+Este ajuste mejora el proceso de inicio de sesión al proporcionar protecciones adicionales para la validación de la identidad del usuario. Esto incluye:
+
+* ***Autenticación más segura***: Refuerza la resistencia contra ataques como la suplantación de identidad o el uso de credenciales robadas.
+
+* ***Uso de TPM***: Asegura que la clave de autenticación esté almacenada en un Módulo de Plataforma Segura (TPM, por sus siglas en inglés), lo que proporciona protección de hardware contra manipulaciones.
+
+* ***Protección ante amenazas***: Reduce el riesgo de ataques basados en técnicas de interceptación o de fuerza bruta al utilizar métodos avanzados de verificación y cifrado.
+
+¿Y el ajuste `Utilice las claves de seguridad para el inicio de sesión`?
+
+Pues se refiere a la habilitación de un método de autenticación que utiliza claves de seguridad físicas (como llaves USB compatibles con `FIDO2`) para iniciar sesión en dispositivos y servicios.
+
+Las Llaves de seguridad son dispositivos físicos que actúan como un segundo factor de autenticación o, en algunos casos, como el principal método de inicio de sesión. Estas claves generalmente usan protocolos de seguridad como FIDO2 (Fast Identity Online 2) para proporcionar un acceso seguro y sin contraseña a dispositivos y aplicaciones.
+
+¿Cómo funcionan?
+* ***Llaves USB, NFC o Bluetooth***: Los usuarios insertan la llave de seguridad en un puerto USB o la conectan a través de NFC/Bluetooth para autenticarse.
+
+* ***Cifrado asimétrico***: Las llaves de seguridad funcionan mediante un sistema de cifrado asimétrico, donde una clave pública y una clave privada se utilizan para validar al usuario. La clave privada nunca sale del dispositivo físico, lo que la hace más segura que las contraseñas tradicionales.
+
+* ***Interacción del usuario***: En la mayoría de los casos, el usuario debe interactuar físicamente con la llave (por ejemplo, presionando un botón) para confirmar su identidad, lo que añade un nivel de protección contra el acceso remoto no autorizado.
+
+Hacemos clic en ***Guardar*** para actualizar la configuración de `WHFB` en el tenant.
+
+![Guardar](./img/202411091558.png)
 
