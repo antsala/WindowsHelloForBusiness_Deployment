@@ -23,13 +23,37 @@ Con `WHFB` la organización se mueve a una nueva dirección, consistente en ***N
 
 ## Primera opción de configuración de WHFB
 
-La primera forma de configurar `WHFB` es 'no hacer nada', ya que `WHFB` está habilitado por defecto en todos los tenants de M365. Por consiguiente, podemos usarlo sin tener que hacer nada.
+La primera forma de configurar `WHFB` es 'no hacer nada', ya que `WHFB` está habilitado por defecto en todos los tenants de M365. Por consiguiente, podemos usarlo directamente.
 
 Nos logamos en el tenant y creamos un usuario de prueba. 
 Nota: La contraseña es `Pa55w.rd12345`.
+
 ![Crear usuario](./img/202411091137.png)
 
-Asignamos licencia de Office.
+Asignamos licencias.
+
+![Asigna licencia](./img/202411091141.png)
+
+El dispositivo del usuario debe estar registrado en `Microsoft Entra ID`. Tienes dos formas de conseguirlo:
+
+* Uniendo el disposito al dominio de `Entra ID`.
+* Inscribiendo el dispositivo en `Entra ID`.
+
+Vamos a usar la `Inscripción`. 
+
+Más adelante vamos a ver formas avanzadas de `WHFB`, que requerirán el uso de `Intune` (Endpoint Manager). Por esa razón, ahora es buen momento para activar la configuración que permite que un dispositivo inscrito sea gobernado por 'Intune'.
+
+![Inscripcion automática](./img/202411091158.png)
+
+Seleccionamos ***Todo*** en ámbito MDB y Guardamos. Esto permitirá que todos los usuarios puedan inscribir sus dispositivos en Intune.
+
+![Seleccionar TODO](./img/202411091200.png)
+
+De vuelta a la página de inscripción, seleccionamos la configuración de `WHFB`.
+
+
+
+
 
 
 
