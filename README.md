@@ -37,11 +37,11 @@ Asignamos licencias.
 El dispositivo del usuario debe estar registrado en `Microsoft Entra ID`. Tienes dos formas de conseguirlo:
 
 * Uniendo el disposito al dominio de `Entra ID`.
-* Inscribiendo el dispositivo en `Entra ID`.
+* Registrando el dispositivo en `Entra ID`.
 
-Vamos a usar la `Inscripción`. 
+Vamos a usar el `Registro`. 
 
-Más adelante vamos a ver formas avanzadas de `WHFB`, que requerirán el uso de `Intune` (Endpoint Manager). Por esa razón, ahora es buen momento para activar la configuración que permite que un dispositivo inscrito sea gobernado por 'Intune'.
+Más adelante vamos a ver formas avanzadas de `WHFB`, que requerirán el uso de `Intune` (Endpoint Manager). Por esa razón, ahora es buen momento para activar la configuración que permite que un dispositivo registrado sea gobernado autmáticamente por `Intune` (inscripción automática en Intune).
 
 ![Inscripcion automática](./img/202411091158.png)
 
@@ -57,7 +57,32 @@ Estudia la siguiente imagen.
 
 ![WHFB](./img/202411091206.png)
 
-En (1) puedes comprobar que `WHFB` está habilitado para ***Todos los usuarios***. En su configuración por defecto, como ya anunciamos no hay que hacer nada. Las opciones que puedes ver en (2) las trataremos más adelante. Por esta razón, el botón ***Guardar*** (3) no se activa.
+En (1) puedes comprobar que `WHFB` está habilitado para ***Todos los usuarios***. En su configuración por defecto, como ya anunciamos, no hay que hacer nada. Las opciones que puedes ver en (2) las trataremos más adelante. Por esta razón, el botón ***Guardar*** (3) no se activa.
+
+Vamos a proceder a registrar el dispositivo. Para ello, iniciamos sesión en el dispositivo y accedemos a `Access work or school`.
+
+![Settings](./img/202411091214.png)
+
+Luego clic en ***Connect***.
+
+![Settings](./img/202411091215.png)
+
+Escribimos el nombre de usuario y clic en ***Next***
+
+![Settings](./img/202411091217.png)
+
+Escribimos la contraseña del usuario. 
+Nota: Es necesario proporcionar contraseña porque estamos haciendo un registro de dispositivo manual. Cuando esta solución se despliegue de forma masiva ya no será necesario que el propio usuario registre el dispositivo (y por ello escribia la contraseña). 
+
+Debemos esperar unos segundos a que se registre el dispositivo.
+
+![Settings](./img/202411091220.png)
+
+Si el registro es efectivo, verás es siguiente mensaje.
+
+![Settings](./img/202411091221.png)
+
+
 
 
 
