@@ -51,6 +51,15 @@ Seleccionamos ***Todo*** en ámbito MDB y Guardamos. Esto permitirá que todos l
 
 De vuelta a la página de inscripción, seleccionamos la configuración de `WHFB`.
 
+![Seleccionar WHFB](./img/202411091204.png)
+
+Estudia la siguiente imagen.
+
+![WHFB](./img/202411091206.png)
+
+En (1) puedes comprobar que `WHFB` está habilitado para ***Todos los usuarios***. En su configuración por defecto, como ya anunciamos no hay que hacer nada. Las opciones que puedes ver en (2) las trataremos más adelante. Por esta razón, el botón ***Guardar*** (3) no se activa.
+
+
 
 
 
