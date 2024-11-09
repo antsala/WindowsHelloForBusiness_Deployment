@@ -109,7 +109,7 @@ Elegimos `Otro usuario` y escribimos el email del usuario de ejemplo y su contra
 
 ![inscripcion](./img/202411091403.png)
 
-La contraseña sigue siendo necesaria para configurar Windows Hello en el dispositivo, pero a partir de entonces ya no será necesaria.
+La contraseña sigue siendo necesaria para configurar Windows Hello en el dispositivo, pero a partir de entonces no se usará.
 
 Se crea el perfil del usuario.
 
@@ -179,13 +179,14 @@ Solo se permiten los inicios de sesión que ofrece `Windows Hello`.
 
 Como imaginarás, lo que vamos a tratar a continuación, determinará qué opciones de inicio de sesión se le ofrece al dispositivo del usuario. Esta configuración se realizará en `Microsoft Entra ID` y una vez configuradas, el usuario no podrá cambiarlas en su dispositivo.
 
-## Segunda opción de configuración de WHFV
+## Segunda opción de configuración de WHFB
 
 La forma de configurar `WHFB` que hemos explicado no es realmente una opción, ya que `WHFB` estaba ya connfigurado. Solo hemos indicado (mediante la inscripción de dispositivo) que `Windows 11` configure `Windows Hello` para iniciar sesión. 
 
 En esta segunda opción, vamos a aprender a cambiar algunos de los ajustes de seguridad de `WHFB`.
 
 https://www.youtube.com/watch?v=A8faHO-bn-0
+
 
 
 
