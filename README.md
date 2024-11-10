@@ -314,5 +314,20 @@ Comprueba que se ha creado correctamente.
 
 ## Actividades que puede realizar el usuario en Windows Hello.
 
-https://www.youtube.com/watch?v=A8faHO-bn-0
+En el equipo de Windows 11, ya tenemos configurado el uso del `PIN` en `Windows Hello`.
+
+En la imagen puedes ver las `formas de iniciar sesión` o métodos disponibles. Observa como ni el `reconocimiento facial` ni el `reconocimiento de huella digital` están disponibles. Esto se debe a que la máquina virtual que estamos usando no dispone del hardware virtual apropiado. En un dispositivo real, si el hardware está presente, también lo estarán las opciones asociadas.
+
+![ways](./img/202411101003.png)
+
+En el caso del `PIN`, el usuario puede cambiarlo en cualquier momento (1). Como la `Directiva de Intune` establece la configuración de `WHFB`, el usuario no puede quitar este método de inicio de sesión (2). En el caso de olvidar el `PIN`, podemos poner otro haciendo clic en (3) 
+
+![ways1](./img/202411101008.png)
+
+Se muestra el siguiente mensaje.
+
+![Reset pin](./img/202411101011.png)
+
+Debemos tener cuidado, porque no es lo mismo resetear el `PIN`, que cambiarlo por otro (que requiere el conocimiento del actual). Si reseteamos el `PIN`, todos los secretos criptográficos asociados a este ya no serán accesibles, y por eso se muestra el mensaje anterior. Si lo que realmente deseamos es ***Cambiar el PIN***, entonces debemos hacerlo mediante la opción 
+
 
