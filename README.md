@@ -393,23 +393,25 @@ Con ello, ahora tenemos disponible las configuraciones de los dos grupos en la d
 
 ![policy WHFB5](./img/202411101102.png) 
 
-Solo queda acudir a la tabla de proveedores de credenciales y trasladar los respectivos `GUID` a los grupos. 
+Solo queda acudir a la tabla de `Proveedores de credenciales` y trasladar los respectivos `GUIDs` a los grupos. 
 
-Supón que queremos como primer factor (Grupo A) el `Reconocimiento facial` y como segundo (Grupo B) el `PIN`. 
+Por ejemplo, supón que deseas como primer factor (Grupo A) el `Reconocimiento facial` y como segundo (Grupo B) el `PIN`. La configuración debe quedar así.
 
 ![policy WHFB6](./img/202411101108.png) 
 
-Guarda la directiva. Cuando Intune la aplique, Windows deberá reconocer el rostro de la persona y, posteriormente solicitará el `PIN`. Esta doble factor se aplica para los inicios de sesión y para desbloquear la pantalla.
+Guarda la directiva. 
 
-Con esto terminamos este tutorial. Recuerda que el uso de contraseñas es intrínsecamente INSEGURO y deberías desplegar en tu organización el uso de `Windows Hello para Empresas` para el inicio de sesión en Windows.
+Cuando Intune la aplique, `Windows Hello` deberá reconocer tu rostro y, posteriormente te pedirá el `PIN`. Este doble factor se aplica para los inicios de sesión y para desbloquear la pantalla.
+
+Recuerda que el uso de contraseñas es intrínsecamente INSEGURO y deberías desplegar en tu organización el uso de `Windows Hello para Empresas` para el inicio de sesión en Windows.
 
 ## Configurar WHFB en un entorno híbrido.
 
-Como habrás visto, las nuevas tecnologías que ofrece `WHFB` bastionan de forma muy efectiva las autenticaciones contra `Microsoft Entra ID`. En organizaciones nativas en Azure, la solución se implementa de forma muy simple, como has visto en este tutorial, pero ¿qué aproximación debo tomar si tengo un directorio `ADDS` on-prem?
+Como habrás visto, las nuevas tecnologías que ofrece `WHFB` bastionan de forma muy efectiva las autenticaciones contra `Microsoft Entra ID`. En organizaciones `nativas en Azure`, la solución se implementa de forma muy simple, como has visto en este tutorial, pero ¿qué aproximación debo tomar si tengo un directorio `ADDS` on-prem?
 
 Microsoft también recomienda que uses `WHFB`, pero en este escenario deberás usar el `Modo híbrido de Windows Hello para la Empresa`.
 
-Este modo permite que los dispositivos en un dominio de AD local usen `WHFB` para autenticarse en recursos tanto locales como en la nube. Como prerrequisito debes configurar `Microsoft Entra ID  Connect` (Azure AD Connect) para sincronizar tus objetos de AD DS con Azure AD, permitiendo la autenticación híbrida.
+Este modo permite que los dispositivos en un dominio de `ADDS` local usen `WHFB` para autenticarse en recursos tanto locales como en la nube. Como prerrequisito debes configurar `Microsoft Entra ID  Connect` (Azure AD Connect) para sincronizar tus objetos de AD DS con Azure AD, permitiendo la autenticación híbrida.
 
 La documentación, junto con los pasos detallados para conseguir este despliegue, puedes [encontrarla aquí](https://learn.microsoft.com/es-es/windows/security/identity-protection/hello-for-business/deploy/hybrid-cloud-kerberos-trust?tabs=intune)
 
