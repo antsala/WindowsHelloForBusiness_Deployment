@@ -328,6 +328,8 @@ Se muestra el siguiente mensaje.
 
 ![Reset pin](./img/202411101011.png)
 
-Debemos tener cuidado, porque no es lo mismo resetear el `PIN`, que cambiarlo por otro (que requiere el conocimiento del actual). Si reseteamos el `PIN`, todos los secretos criptográficos asociados a este ya no serán accesibles, y por eso se muestra el mensaje anterior. Si lo que realmente deseamos es ***Cambiar el PIN***, entonces debemos hacerlo mediante la opción 
+Debemos tener cuidado, porque no es lo mismo resetear el `PIN`, que cambiarlo por otro (que requiere el conocimiento del actual). Si reseteamos el `PIN`, todos los secretos criptográficos asociados a este ya no serán accesibles, y por eso se muestra el mensaje anterior. Si lo que realmente deseamos es ***Cambiar el PIN***, entonces debemos hacerlo mediante la opción de cambio.
+
+La opción de `Reconocimiento facial`, exige disponer de hardware compatible. En [este enlace](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/#facial-recognition-sensors).
 
 
