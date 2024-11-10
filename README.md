@@ -340,11 +340,11 @@ A continuación seguimos las indicaciones del asistente.
 
 ![Config facial2](./img/202411101028.png)
 
-Una vez finalizado el proceso de reconocimiento, podemos volver a iniciarlo por medio del botón ***Improve recognition***(1), en el caso de que no se reconozca nuestro rostro correctamente. Observa también la opción ***Automatically dismiss the lock screen if Windows recognises tour face***(2).
+Una vez finalizado el proceso de reconocimiento, podemos volver a iniciarlo por medio del botón ***Improve recognition***(1), en el caso de que no se reconozca nuestro rostro correctamente. Observa también la opción ***Automatically dismiss the lock screen if Windows recognises your face***(2).
 
 ![Config facial3](./img/202411101029.png)
 
-Esta última configuración es muy recomendable, ya que desbloquea la pantalla simplemente poniendote delante del dispositivo. En la siguiente imagen puedes ver cómo Windows está intentando reconocer el rostro y en caso afirmativo, desbloquearía la pantalla o iniciaría sesión.
+Esta última configuración es muy recomendable, ya que desbloquea la pantalla simplemente poniendote delante del dispositivo. En la siguiente imagen puedes ver cómo `Windows Hello` está intentando reconocer el rostro y en caso afirmativo, desbloquearía la pantalla o iniciaría sesión.
 
 ![Config facial4](./img/202411101034.png)
 
@@ -354,7 +354,7 @@ Hasta el momento hemos usuado `Intune` para configurar `WHFB`, pero no hemos enc
 
 Con `Multifactor unlock` debemos proporcionar ***DOS*** factores para inicar sesión o desbloquear el dispositivo. Recuerda que seguimos sin usar contraseñas (Passwordless), de forma que esta configuración de `WHFB` es la más robusta que puedes configurar y, virtualmente, reduces a cero el riesgo de suplantación de identidad.
 
-Si usamos un `PIN` como factor de autenticación para Windows Hello, podemos pensar, y con razón, que no es suficientemente seguro si otra persona conoce dicho `PIN`. Es entonces donde activamos el segundo factor, a elegir entre los que ofrece Windows Hello. 
+Si usamos un `PIN` como factor de autenticación para Windows Hello, podemos pensar, y con razón, que no es suficientemente seguro si otra persona conoce dicho `PIN`. Es entonces donde activamos el segundo factor, a elegir entre los que ofrece `Windows Hello`. 
 
 La siguiente demostración, configurará un `PIN` y `Reconocimiento facial`.
 
@@ -364,7 +364,7 @@ Observa detenidamente la siguiente imagen (Está en la documentación anterior)
 
 ![Multi unlock](./img/202411101046.png)
 
-En (1) puedes ver los diferentes `Proveedores de credenciales`, mientras que en (2) ves el `GUID` o Identificador General Universal. Debes elegir cualquie combinación de estos dos factores, por ejemplo:
+En (1) puedes ver los diferentes `Proveedores de credenciales`, mientras que en (2) ves el `GUID` o Identificador Global Universal. Debes elegir cualquier combinación de estos dos factores, por ejemplo:
 
 * `PIN` y `Facial Recognition`
 * `Fingerprint` y `Facial Recognition`
@@ -385,19 +385,19 @@ En `Editar perfil`, haz clic en `+Agregar configuración`.
 
 ![policy WHFB3](./img/202411101057.png)
 
-En (1) filtra por `hello`. A continuación selecciona `Windows Hello para empresas`(2) y por último, en (3) selecciona los checks para `Grupo A` y `Grupo B`.
+En (1) filtra por `hello`. A continuación selecciona `Windows Hello para Empresas`(2) y por último, en (3) selecciona los checks para `Grupo A` y `Grupo B`.
 
-[policy WHFB4](./img/202411101100.png) 
+![policy WHFB4](./img/202411101100.png) 
 
 Con ello, ahora tenemos disponible las configuraciones de los dos grupos en la directiva.
 
-[policy WHFB5](./img/202411101102.png) 
+![policy WHFB5](./img/202411101102.png) 
 
 Solo queda acudir a la tabla de proveedores de credenciales y trasladar los respectivos `GUID` a los grupos. 
 
 Supón que queremos como primer factor (Grupo A) el `Reconocimiento facial` y como segundo (Grupo B) el `PIN`. 
 
-[policy WHFB6](./img/202411101108.png) 
+![policy WHFB6](./img/202411101108.png) 
 
 Guarda la directiva. Cuando Intune la aplique, Windows deberá reconocer el rostro de la persona y, posteriormente solicitará el `PIN`. Esta doble factor se aplica para los inicios de sesión y para desbloquear la pantalla.
 
