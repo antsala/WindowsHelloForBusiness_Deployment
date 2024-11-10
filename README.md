@@ -330,6 +330,87 @@ Se muestra el siguiente mensaje.
 
 Debemos tener cuidado, porque no es lo mismo resetear el `PIN`, que cambiarlo por otro (que requiere el conocimiento del actual). Si reseteamos el `PIN`, todos los secretos criptográficos asociados a este ya no serán accesibles, y por eso se muestra el mensaje anterior. Si lo que realmente deseamos es ***Cambiar el PIN***, entonces debemos hacerlo mediante la opción de cambio.
 
-La opción de `Reconocimiento facial`, exige disponer de hardware compatible. En [este enlace](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/#facial-recognition-sensors).
+La opción de `Reconocimiento facial`, exige disponer de hardware compatible. En [este enlace](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/#facial-recognition-sensors) podemos leer sobre ello. En [este otro enlace](https://www.pcworld.com/article/394379/windows-hello-webcams-you-can-buy-right-now.html) se muestran algunos dispositivos compatibles.
 
+La configuración del reconocimiento facial se realiza haciendo clic en el botón `Set up`.
 
+![Config facial](./img/202411101026.png)
+
+A continuación seguimos las indicaciones del asistente.
+
+![Config facial2](./img/202411101028.png)
+
+Una vez finalizado el proceso de reconocimiento, podemos volver a iniciarlo por medio del botón ***Improve recognition***(1), en el caso de que no se reconozca nuestro rostro correctamente. Observa también la opción ***Automatically dismiss the lock screen if Windows recognises tour face***(2).
+
+![Config facial3](./img/202411101029.png)
+
+Esta última configuración es muy recomendable, ya que desbloquea la pantalla simplemente poniendote delante del dispositivo. En la siguiente imagen puedes ver cómo Windows está intentando reconocer el rostro y en caso afirmativo, desbloquearía la pantalla o iniciaría sesión.
+
+![Config facial4](./img/202411101034.png)
+
+Hasta el momento hemos usuado `Intune` para configurar `WHFB`, pero no hemos encontrado diferencias significativas respecto a lo que `WHFB` puede hacer sin tener que disponer de licencias de `Intune`. El verdadero poder que aporta `Intune` a la configuración de `WHFB` se llama `Multifactor unlock` y vamos a proceder a explicarla.
+
+## Multifactor unlock.
+
+Con `Multifactor unlock` debemos proporcionar ***DOS*** factores para inicar sesión o desbloquear el dispositivo. Recuerda que seguimos sin usar contraseñas (Passwordless), de forma que esta configuración de `WHFB` es la más robusta que puedes configurar y, virtualmente, reduces a cero el riesgo de suplantación de identidad.
+
+Si usamos un `PIN` como factor de autenticación para Windows Hello, podemos pensar, y con razón, que no es suficientemente seguro si otra persona conoce dicho `PIN`. Es entonces donde activamos el segundo factor, a elegir entre los que ofrece Windows Hello. 
+
+La siguiente demostración, configurará un `PIN` y `Reconocimiento facial`.
+
+La documentación para desplegar `Multifactor unlock` puedes [encontrarla aquí](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/multifactor-unlock?tabs=intune)
+
+Observa detenidamente la siguiente imagen (Está en la documentación anterior)
+
+![Multi unlock](./img/202411101046.png)
+
+En (1) puedes ver los diferentes `Proveedores de credenciales`, mientras que en (2) ves el `GUID` o Identificador General Universal. Debes elegir cualquie combinación de estos dos factores, por ejemplo:
+
+* `PIN` y `Facial Recognition`
+* `Fingerprint` y `Facial Recognition`
+* `Facial Recognition` y `Fingerprint`
+* etc.
+
+¿Recuerdas que en la configuración de la directiva de `WHFB` dejamos pendiente lo del `Group A` y el `Group B`? 
+
+Vuelve a editar la directiva.
+
+![policy WHFB](./img/202411101053.png)
+
+Desplázate hacia el final de la directiva y haz clic en `Editar` (Opciones de configuración)
+
+![policy WHFB2](./img/202411101055.png)
+
+En `Editar perfil`, haz clic en `+Agregar configuración`.
+
+![policy WHFB3](./img/202411101057.png)
+
+En (1) filtra por `hello`. A continuación selecciona `Windows Hello para empresas`(2) y por último, en (3) selecciona los checks para `Grupo A` y `Grupo B`.
+
+[policy WHFB4](./img/202411101100.png) 
+
+Con ello, ahora tenemos disponible las configuraciones de los dos grupos en la directiva.
+
+[policy WHFB5](./img/202411101102.png) 
+
+Solo queda acudir a la tabla de proveedores de credenciales y trasladar los respectivos `GUID` a los grupos. 
+
+Supón que queremos como primer factor (Grupo A) el `Reconocimiento facial` y como segundo (Grupo B) el `PIN`. 
+
+[policy WHFB6](./img/202411101108.png) 
+
+Guarda la directiva. Cuando Intune la aplique, Windows deberá reconocer el rostro de la persona y, posteriormente solicitará el `PIN`. Esta doble factor se aplica para los inicios de sesión y para desbloquear la pantalla.
+
+Con esto terminamos este tutorial. Recuerda que el uso de contraseñas es intrínsecamente INSEGURO y deberías desplegar en tu organización el uso de `Windows Hello para Empresas` para el inicio de sesión en Windows.
+
+## Configurar WHFB en un entorno híbrido.
+
+Como habrás visto, las nuevas tecnologías que ofrece `WHFB` bastionan de forma muy efectiva las autenticaciones contra `Microsoft Entra ID`. En organizaciones nativas en Azure, la solución se implementa de forma muy simple, como has visto en este tutorial, pero ¿qué aproximación debo tomar si tengo un directorio `ADDS` on-prem?
+
+Microsoft también recomienda que uses `WHFB`, pero en este escenario deberás usar el `Modo híbrido de Windows Hello para la Empresa`.
+
+Este modo permite que los dispositivos en un dominio de AD local usen `WHFB` para autenticarse en recursos tanto locales como en la nube. Como prerrequisito debes configurar `Microsoft Entra ID  Connect` (Azure AD Connect) para sincronizar tus objetos de AD DS con Azure AD, permitiendo la autenticación híbrida.
+
+La documentación, junto con los pasos detallados para conseguir este despliegue, puedes [encontrarla aquí](https://learn.microsoft.com/es-es/windows/security/identity-protection/hello-for-business/deploy/hybrid-cloud-kerberos-trust?tabs=intune)
+
+Recuerda que las tecnologías evolucionan, y los administradores debemos hacer lo propio. Hoy en día no es aceptable ser víctima de un incidente de seguridad relacionado con la identidad del usuario por seguir usando tecnologías de hace 20 años basadas en contraseñas. Sin duda, el cambio es un reto, pero en algún momento deberás hacer que tu organización sea `PasswordLess`.
