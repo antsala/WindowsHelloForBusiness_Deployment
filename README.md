@@ -38,17 +38,17 @@ Estudia detenidamente la siguiente imagen.
 
 Así funciona.
 
-Inicio de sesión del usuario (Paso 1): El usuario inicia sesión en su dispositivo Windows 10 usando Windows Hello para Empresas, autenticándose localmente mediante un gesto como un PIN o información biométrica.
+Inicio de sesión del usuario (Paso 1): El usuario inicia sesión en su dispositivo Windows 10 usando Windows Hello para Empresas, autenticándose localmente mediante un `gesto`, un `PIN` o `información biométrica`.
 
-Solicitud de nonce (Paso 2): El dispositivo Windows 10, a través del CloudAP, solicita un nonce a Microsoft Entra ID.
+Solicitud de nonce (Paso 2): El dispositivo Windows 10, a través del `CloudAP` (Es un servicio que corre en Windows 10/11), solicita un `nonce` a `Microsoft Entra ID`.
 
-Envío del nonce (Paso 3): Microsoft Entra ID responde enviando el nonce al dispositivo Windows 10. Este nonce es un número aleatorio que se puede usar una sola vez y tiene una validez limitada (normalmente 5 minutos).
+Envío del nonce (Paso 3): `Microsoft Entra ID` responde enviando el `nonce` al dispositivo Windows 10. Este nonce es un número aleatorio que se puede usar una sola vez y tiene una validez limitada (normalmente 5 minutos).
 
-Firma del nonce (Paso 4): El dispositivo Windows 10 firma el nonce con la clave privada del usuario y envía la respuesta firmada de vuelta a Microsoft Entra ID.
+Firma del nonce (Paso 4): El dispositivo Windows 10 firma el nonce con la `clave privada del usuario` y envía la respuesta firmada de vuelta a `Microsoft Entra ID`.
 
-Validación de la firma (Paso 5): Microsoft Entra ID recibe la respuesta firmada y la valida usando la clave pública del usuario registrada previamente. Si la validación es exitosa, Microsoft Entra ID prepara y cifra el PRT (token de actualización principal) con la clave de sesión y la clave de transporte del dispositivo.
+Validación de la firma (Paso 5): `Microsoft Entra ID` recibe la respuesta firmada y la valida usando la `clave pública del usuario` registrada previamente. Si la validación es exitosa, Microsoft Entra ID prepara y cifra el `PRT (token de actualización principal)` con la `clave de sesión` y la `clave de transporte pública del dispositivo`.
 
-Envío del PRT cifrado (Paso 6): Aunque en la imagen la flecha parece indicar que el dispositivo envía algo a la nube, la acción correcta es que Microsoft Entra ID devuelve el PRT cifrado al dispositivo Windows 10. El dispositivo luego descifra la clave de sesión usando su clave de transporte privada y protege la clave de sesión con el TPM del dispositivo. Este PRT permite al usuario acceder a aplicaciones y servicios de manera segura mediante SSO (inicio de sesión único).
+Envío del PRT cifrado (Paso 6): Aunque en la imagen la flecha parece indicar que el dispositivo envía algo a la nube, la acción correcta es que `Microsoft Entra ID` devuelve el PRT cifrado al dispositivo Windows 10. El dispositivo luego descifra la clave de sesión usando su clave de transporte privada y ***protege la clave de sesión con el `TPM`*** del dispositivo. Este PRT permite al usuario acceder a aplicaciones y servicios de manera segura mediante SSO (inicio de sesión único).
 
 
 ## Primera opción de configuración de WHFB
