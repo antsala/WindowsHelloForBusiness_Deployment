@@ -38,17 +38,18 @@ Estudia detenidamente la siguiente imagen.
 
 Así funciona.
 
-1) Un usuario inicia sesión en Windows 10/11 mediante gestos, PIN o biometría. Esta acción desbloquea la `clave privada` que se envía al proveedor de compatibilidad para seguridad de la autenticación en la nube, conocido como el `proveedor de autenticación de nube (CloudAP)`. Este es un componente de `Windows 10/11` que actúa como intermediario entre los métodos de autenticación local (como `WHFB`) y los servicios de autenticación en la nube, como `Microsoft Entra ID`.
+Inicio de sesión del usuario (Paso 1): El usuario inicia sesión en su dispositivo Windows 10 usando Windows Hello para Empresas, autenticándose localmente mediante un gesto como un PIN o información biométrica.
 
-2) El Cloud AP solicita un `nonce` (un número arbitrario aleatorio que se puede usar una vez) a `Microsoft Entra ID`.
+Solicitud de nonce (Paso 2): El dispositivo Windows 10, a través del CloudAP, solicita un nonce a Microsoft Entra ID.
 
-3) `Microsoft Entra ID` devuelve una clave `nonce` que es válida durante 5 minutos.
+Envío del nonce (Paso 3): Microsoft Entra ID responde enviando el nonce al dispositivo Windows 10. Este nonce es un número aleatorio que se puede usar una sola vez y tiene una validez limitada (normalmente 5 minutos).
 
-4) El `Cloud AP` firma el nonce con la `clave privada del usuario` y devuelve el nonce firmado a `Microsoft Entra ID`.
+Firma del nonce (Paso 4): El dispositivo Windows 10 firma el nonce con la clave privada del usuario y envía la respuesta firmada de vuelta a Microsoft Entra ID.
 
-5) `Microsoft Entra ID` valida la clave `nonce` firmada con la `clave pública del usuario`. `Microsoft Entra ID` valida la firma y, a continuación, valida el nonce firmado recibido. Tras validar el nonce, `Microsoft Entra ID` crea un `token de actualización principal (PRT)`. Este token PRT es un tipo de credencial que permite al usuario autenticarse automáticamente en aplicaciones y servicios sin tener que volver a ingresar sus credenciales. El `PRT` se cifra con una `clave de sesión`, que es única para la sesión de autenticación actual. Luego, la `clave de sesión` se cifra con la `clave de transporte del dispositivo`, que está asociada al dispositivo del usuario. Esta doble capa de cifrado asegura que el PRT esté protegido y solo pueda ser descifrado por el dispositivo específico del usuario. `Microsoft Entra ID` envía el PRT cifrado al CloudAP, que lo usa para permitir el acceso seguro a los recursos en la nube y locales. El `CloudAP` envía el PRT cifrado con la clave de sesión. El `CloudAP` utiliza la clave de transporte privada del dispositivo para descifrar la clave de sesión y protege la clave de sesión utilizando el `Módulo de plataforma segura (TPM)` del dispositivo.
+Validación de la firma (Paso 5): Microsoft Entra ID recibe la respuesta firmada y la valida usando la clave pública del usuario registrada previamente. Si la validación es exitosa, Microsoft Entra ID prepara y cifra el PRT (token de actualización principal) con la clave de sesión y la clave de transporte del dispositivo.
 
-6) El CloudAP devuelve una respuesta de autenticación correcta a Windows. Después, el usuario puede acceder a aplicaciones de Windows, en la nube y locales mediante el inicio de sesión único (SSO) sin problemas.
+Envío del PRT cifrado (Paso 6): Aunque en la imagen la flecha parece indicar que el dispositivo envía algo a la nube, la acción correcta es que Microsoft Entra ID devuelve el PRT cifrado al dispositivo Windows 10. El dispositivo luego descifra la clave de sesión usando su clave de transporte privada y protege la clave de sesión con el TPM del dispositivo. Este PRT permite al usuario acceder a aplicaciones y servicios de manera segura mediante SSO (inicio de sesión único).
+
 
 ## Primera opción de configuración de WHFB
 
