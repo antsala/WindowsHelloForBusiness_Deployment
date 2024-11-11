@@ -28,6 +28,30 @@ Con `WHFB` la organización se mueve a una nueva dirección, consistente en ***N
 
 `WHFB` es entonces una forma mucho más segura de iniciar sesión en los dispositivos, ya que, al usar un PIN, biometríca o tokens de hardware, estos no abandonan (se transmiten) el dispositivo en ningún momento. En consecuencia no pueden ser capturados por la red.
 
+En `WHFB` la información biométrica y las credenciales de PIN están vinculadas directamente al equipo del usuario, lo que impide el acceso de cualquier persona que no sea el propietario. Con la integración de la infraestructura de clave pública (PKI) y la compatibilidad integrada con el inicio de sesión único (SSO), `Windows Hello para Empresas` ofrece un método sencillo y práctico de acceder directamente a los recursos corporativos del entorno local y la nube.
+
+## ¿Cómo funciona realmente WHFB?
+
+Estudia detenidamente la siguiente imagen.
+
+![WHFB](./img/202411111606.png)
+
+Así funciona.
+
+1) Un usuario inicia sesión en Windows 10/11 mediante gestos, PIN o biometría. Esta acción desbloquea la `clave privada` se envía al proveedor de compatibilidad para seguridad de la autenticación en la nube, conocido como el `proveedor de autenticación de nube (CloudAP)`. Este es un componente de `Windows 10/11` que actúa como intermediario entre los métodos de autenticación local (como `WHFB`) y los servicios de autenticación en la nube, como `Microsoft Entra ID`.
+
+2) El Cloud AP solicita un `nonce` (un número arbitrario aleatorio que se puede usar una vez) de `Microsoft Entra ID`.
+
+3) `Microsoft Entra ID` devuelve una clave `nonce` que es válida durante 5 minutos.
+
+4) El `Cloud AP` firma el nonce con la `clave privada del usuario` y devuelve el nonce firmado a `Microsoft Entra ID`.
+
+5) `Microsoft Entra ID` valida la clave nonce firmada con la `clave pública del usuario`. `Microsoft Entra ID` valida la firma y, a continuación, valida el nonce firmado recibido. Tras validar el nonce, `Microsoft Entra ID` crea un `token de actualización principal (PRT)`. Este token PRT es un tipo de credencial que permite al usuario autenticarse automáticamente en aplicaciones y servicios sin tener que volver a ingresar sus credenciales. El `PRT` se cifra con una `clave de sesión`, que es única para la sesión de autenticación actual. Luego, la `clave de sesión` se cifra con la `clave de transporte del dispositivo`, que está asociada al dispositivo del usuario. Esta doble capa de cifrado asegura que el PRT esté protegido y solo pueda ser descifrado por el dispositivo específico del usuario. `Microsoft Entra ID` envía el PRT cifrado al CloudAP, que lo usa para permitir el acceso seguro a los recursos en la nube y locales.
+
+El `CloudAP` envía el PRT cifrado con la clave de sesión. El CloudAP utiliza la clave de transporte privada del dispositivo para descifrar la clave de sesión y protege la clave de sesión utilizando el Módulo de plataforma segura (TPM) del dispositivo.
+
+6) El CloudAP devuelve una respuesta de autenticación correcta a Windows. Después, el usuario puede acceder a aplicaciones de Windows, en la nube y locales mediante el inicio de sesión único (SSO) sin problemas.
+
 ## Primera opción de configuración de WHFB
 
 La primera forma de configurar `WHFB` es 'no hacer nada', ya que `WHFB` está habilitado por defecto en todos los tenants de M365. Por consiguiente, podemos usarlo directamente.
