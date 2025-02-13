@@ -40,15 +40,15 @@ Así funciona.
 
 Inicio de sesión del usuario (Paso 1): El usuario inicia sesión en su dispositivo Windows 10 usando Windows Hello para Empresas, autenticándose localmente mediante un `gesto`, un `PIN` o `información biométrica`.
 
-Solicitud de nonce (Paso 2): El dispositivo Windows 10, a través del `CloudAP` (Es un servicio que corre en Windows 10/11), solicita un `nonce` a `Microsoft Entra ID`.
+Solicitud de nonce (Paso 2): El dispositivo Windows 10/11, a través del `CloudAP` (Es un servicio que corre en Windows 10/11), solicita un `nonce` a `Microsoft Entra ID`.
 
 Envío del nonce (Paso 3): `Microsoft Entra ID` responde enviando el `nonce` al dispositivo Windows 10. Este nonce es un número aleatorio que se puede usar una sola vez y tiene una validez limitada (normalmente 5 minutos).
 
-Firma del nonce (Paso 4): El dispositivo Windows 10 firma el nonce con la `clave privada del usuario` y envía la respuesta firmada de vuelta a `Microsoft Entra ID`.
+Firma del nonce (Paso 4): El dispositivo Windows 10/11 firma el nonce con la `clave privada del usuario` y envía la respuesta firmada de vuelta a `Microsoft Entra ID`.
 
 Validación de la firma (Paso 5): `Microsoft Entra ID` recibe la respuesta firmada y la valida usando la `clave pública del usuario` registrada previamente. Si la validación es exitosa, Microsoft Entra ID prepara y cifra el `PRT (token de actualización principal)` con la `clave de sesión` y la `clave de transporte pública del dispositivo`.
 
-Envío del PRT cifrado (Paso 6): Aunque en la imagen la flecha parece indicar que el dispositivo envía algo a la nube, la acción correcta es que `Microsoft Entra ID` devuelve el PRT cifrado al dispositivo Windows 10. El dispositivo luego descifra la clave de sesión usando su clave de transporte privada y ***protege la clave de sesión con el `TPM`*** del dispositivo. Este PRT permite al usuario acceder a aplicaciones y servicios de manera segura mediante SSO (inicio de sesión único).
+Envío del PRT cifrado (Paso 6): Aunque en la imagen la flecha parece indicar que el dispositivo envía algo a la nube, la acción correcta es que `Microsoft Entra ID` devuelve el PRT cifrado al dispositivo Windows 10/11. El dispositivo luego descifra la clave de sesión usando su clave de transporte privada y ***protege la clave de sesión con el `TPM`*** del dispositivo. Este PRT permite al usuario acceder a aplicaciones y servicios de manera segura mediante SSO (inicio de sesión único).
 
 
 ## Primera opción de configuración de WHFB
@@ -64,7 +64,7 @@ Asignamos licencias.
 
 ![Asigna licencia](./img/202411091141.png)
 
-El dispositivo del usuario debe estar registrado en `Microsoft Entra ID`. Tienes dos formas de conseguirlo:
+El dispositivo del usuario debe estar inscrito en `Microsoft Entra ID`. Tienes dos formas de conseguirlo:
 
 * Uniendo el disposito al dominio de `Entra ID`.
 * Registrando el dispositivo en `Entra ID`.
@@ -73,7 +73,7 @@ El `registro` al dominio es útil cuando queremos que `Microsoft Entra ID` ident
 
 La `Unión al Dominio de Microsoft Entra ID` es la forma más cómoda cuando la organización es nativa de nube.
 
-Existe la posibilidad de la `Unión híbrida al dominio de Microsoft Entra ID`, donde el dispositivo puede ser a la vez miembro del dominio de la nube y del on-prem (`ADDS`)
+Existe la posibilidad de la `Unión híbrida al dominio de Microsoft Entra ID`, donde el dispositivo puede ser a la vez miembro del dominio de la nube y de los Servicios de Dominio de Active Directory on-prem (`ADDS`)
 
 Por simplicidad de la práctica, vamos a usar la `unión al dominio en la nube`, pero ten en cuenta que `WHFB` funciona para cualquier escenario.
 
@@ -132,7 +132,7 @@ Elegimos `Otro usuario` y escribimos el email del usuario de ejemplo y su contra
 
 ![inscripcion](./img/202411091403.png)
 
-La contraseña sigue siendo necesaria para configurar Windows Hello en el dispositivo, pero a partir de entonces no se usará.
+La contraseña sigue siendo necesaria para configurar Windows Hello en el dispositivo por primera vez, pero a partir de entonces no se usará.
 
 Se crea el perfil del usuario.
 
@@ -257,7 +257,7 @@ Hacemos clic en ***Guardar*** para actualizar la configuración de `WHFB` en el 
 
 ## Tercera opción de configuración de WHFB
 
-Acabamos de ver cómo se modifica la configuración de seguridad de `WHFB` a nivel de tenant. pero ¿qué ourriría si requieres ajustes más detallados? Por ejemplo, que los ejecutivos de la empresa tengan un PIN más complejo.
+Acabamos de ver cómo se modifica la configuración de seguridad de `WHFB` a nivel de tenant. pero ¿qué ocurriría si requieres ajustes más detallados? Por ejemplo, que los ejecutivos de la empresa tengan un PIN más complejo.
 
 Para ello es necesario usar políticas de configuracion de Intune (y sus respectivas licencias)
 
@@ -367,11 +367,11 @@ Una vez finalizado el proceso de reconocimiento, podemos volver a iniciarlo por 
 
 ![Config facial3](./img/202411101029.png)
 
-Esta última configuración es muy recomendable, ya que desbloquea la pantalla simplemente poniendote delante del dispositivo. En la siguiente imagen puedes ver cómo `Windows Hello` está intentando reconocer el rostro y en caso afirmativo, desbloquearía la pantalla o iniciaría sesión.
+Esta última configuración es muy recomendable, ya que desbloquea la pantalla simplemente situándote delante del dispositivo. En la siguiente imagen puedes ver cómo `Windows Hello` está intentando reconocer el rostro y en caso afirmativo, desbloquearía la pantalla o iniciaría sesión.
 
 ![Config facial4](./img/202411101034.png)
 
-Hasta el momento hemos usuado `Intune` para configurar `WHFB`, pero no hemos encontrado diferencias significativas respecto a lo que `WHFB` puede hacer sin tener que disponer de licencias de `Intune`. El verdadero poder que aporta `Intune` a la configuración de `WHFB` se llama `Multifactor unlock` y vamos a proceder a explicarla.
+Hasta el momento hemos usado `Intune` para configurar `WHFB`, pero no hemos encontrado diferencias significativas respecto a lo que `WHFB` puede hacer sin tener que disponer de licencias de `Intune`. El verdadero poder que aporta `Intune` a la configuración de `WHFB` se llama `Multifactor unlock` y vamos a proceder a explicarlo.
 
 ## Multifactor unlock.
 
